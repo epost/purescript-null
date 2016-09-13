@@ -6,7 +6,8 @@ foreign import data Null :: * -> *
 
 instance nullFunctor :: Functor Null where
   map = mapNull
-    
+
+foreign import null     :: forall a  .                       Null a
 foreign import pureNull :: forall a  .  a                 -> Null a
 foreign import isNull   :: forall a  .             Null a -> Boolean
 foreign import foldNull :: forall a  .  a       -> Null a -> a

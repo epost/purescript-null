@@ -23,6 +23,7 @@ function showNull(aOrNull) {
 }
 
 module.exports = {
+  'null': null,
   pureNull: pureNull,
   isNull: isNull,
   foldNull: foldNull,
