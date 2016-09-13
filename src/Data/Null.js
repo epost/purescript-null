@@ -22,11 +22,16 @@ function showNull(aOrNull) {
   return isNull(aOrNull) ? 'naught' : aOrNull.toString();
 }
 
+function unsafeUnNull(aOrNull) {
+  return aOrNull
+}
+
 module.exports = {
   'null': null,
   pureNull: pureNull,
   isNull: isNull,
   foldNull: foldNull,
   mapNull: mapNull,
-  showNull: showNull
+  showNull: showNull,
+  unsafeUnNull: unsafeUnNull
 }
