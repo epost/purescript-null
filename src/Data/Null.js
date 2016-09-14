@@ -26,8 +26,10 @@ function unsafeUnNull(aOrNull) {
   return aOrNull
 }
 
+var nullValue = null // like this to make 'browserify --optimise' not choke
+
 module.exports = {
-  'null': null,
+  'null': nullValue,
   pureNull: pureNull,
   isNull: isNull,
   foldNull: foldNull,
