@@ -3,6 +3,7 @@ module Data.Null where
 import Prelude ((<$>), (<>), (||), not, class Show, class Functor, class Semigroup)
 import Control.Applicative (class Applicative)
 import Control.Apply (class Apply)
+import Control.Bind (class Bind)
 
 foreign import data Null :: * -> *
 
@@ -17,6 +18,9 @@ instance nullApply :: Apply Null where
 
 instance nullApplicative :: Applicative Null where
   pure = pureNull
+
+instance nullBind :: Bind Null where
+  bind x f = if isNull x then null else f (unsafeUnNull x)
 
 foreign import null         :: forall a  .                       Null a
 foreign import pureNull     :: forall a  .  a                 -> Null a

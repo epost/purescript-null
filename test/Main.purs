@@ -22,9 +22,17 @@ n2 = foldNull "Alas once more!" n1
 n3 :: Null Int
 n3 = pureNull 41
 
+n4 :: Null Int
+n4 = aNullInt >>= (_ + 1) >>> pure
+
+n5 :: Null Int
+n5 = pure 3 >>= (_ + 1) >>> pure
+
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
   log $ "n0 = " <> n0
   log $ show n1
   log $ "n2 = " <> n2
   log $ show $ map (1+_) n3
+  log $ show $ n4
+  log $ show $ n5
