@@ -1,11 +1,15 @@
 module Data.Null where
 
-import Prelude ((<$>), (<>), (||), not, class Show, class Functor, class Semigroup)
-import Control.Applicative (class Applicative)
+import Prelude (($), (<$>), (<*>), (==), (<>), (&&), (||), not, class Eq, class Show, class Functor, class Semigroup)
 import Control.Apply (class Apply)
+import Control.Applicative (class Applicative)
 import Control.Bind (class Bind)
 
 foreign import data Null :: * -> *
+
+instance nullEq :: Eq a => Eq (Null a) where
+  eq x y = (isNull x && isNull y) ||
+           (foldNull false $ (==) <$> x <*> y)
 
 instance nullFunctor :: Functor Null where
   map = mapNull

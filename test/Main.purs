@@ -6,9 +6,7 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Data.Null
 
 foreign import aNullInt :: Null Int
-
 foreign import aNullString :: Null String
-
 
 n0 :: String
 n0 = foldNull "Alas, 't was nought!" aNullString
@@ -36,3 +34,9 @@ main = do
   log $ show $ map (1+_) n3
   log $ show $ n4
   log $ show $ n5
+
+  -- Eq
+  log $ show $ n1 == null
+  log $ show $ null == (null :: Null Int)
+  log $ show $ n3 == n3
+  log $ show $ (pure 3 :: Null Int) /= (pure 4)
