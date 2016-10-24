@@ -4,6 +4,11 @@ import Prelude ((<$>), (<>), (||), not, class Show, class Functor, class Semigro
 import Control.Applicative (class Applicative)
 import Control.Apply (class Apply)
 import Control.Bind (class Bind)
+import Control.Alt (class Alt)
+import Control.Plus (class Plus)
+import Control.Monad (class Monad)
+import Control.Alternative (class Alternative)
+import Control.MonadZero (class MonadZero)
 
 foreign import data Null :: * -> *
 
@@ -21,6 +26,16 @@ instance nullApplicative :: Applicative Null where
 
 instance nullBind :: Bind Null where
   bind x f = if isNull x then null else f (unsafeUnNull x)
+
+instance nullAlt :: Alt Null where
+  alt x y = if not (isNull x) then x else if not (isNull y) then y else null
+
+instance nullPlus :: Plus Null where
+  empty = null
+
+instance nullAlternative :: Alternative Null
+instance nullMonad :: Monad Null
+instance nullMonadZero :: MonadZero Null
 
 foreign import null         :: forall a  .                       Null a
 foreign import pureNull     :: forall a  .  a                 -> Null a
