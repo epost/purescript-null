@@ -3,7 +3,7 @@ module Test.Main where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
-import Data.Null
+import Data.Null (Null, null, pureNull, foldNull)
 
 foreign import aNullInt :: Null Int
 foreign import aNullString :: Null String
