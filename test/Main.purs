@@ -3,7 +3,10 @@ module Test.Main where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
+import Data.Maybe (Maybe(..))
 import Data.Null (Null, null, pureNull, foldNull)
+import Data.Foldable (foldMap)
+import Data.Traversable (sequence)
 
 foreign import aNullInt :: Null Int
 foreign import aNullString :: Null String
@@ -40,3 +43,11 @@ main = do
   log $ show $ null == (null :: Null Int)
   log $ show $ n3 == n3
   log $ show $ (pure 3 :: Null Int) /= (pure 4)
+
+  -- Foldable
+  log $ show $ foldMap id (pure "abc" :: Null String) == "abc"
+  log $ show $ foldMap id (null :: Null String) == ""
+
+  -- Traversable
+  log $ show $ sequence (pure (Just "abc") :: Null (Maybe String)) == Just (pure "abc")
+  log $ show $ sequence (null :: Null (Maybe String)) == Just null
