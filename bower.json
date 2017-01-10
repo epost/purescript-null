@@ -8,7 +8,8 @@
     "output"
   ],
   "dependencies": {
-    "purescript-control": "^2.0.0"
+    "purescript-control": "^2.0.0",
+    "purescript-foldable-traversable": "^2.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^2.0.0"
