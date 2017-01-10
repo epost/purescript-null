@@ -1,6 +1,6 @@
 module Data.Null where
 
-import Prelude (($), (<$>), (<*>), (==), (<>), (&&), (||), not, class Eq, class Show, class Functor, class Semigroup)
+import Prelude (($), (<$>), (<*>), (==), (<>), (&&), (||), not, class Eq, class Show, class Functor, class Semigroup, otherwise, pure)
 import Control.Apply (class Apply)
 import Control.Applicative (class Applicative)
 import Control.Bind (class Bind)
@@ -9,6 +9,9 @@ import Control.Plus (class Plus)
 import Control.Monad (class Monad)
 import Control.Alternative (class Alternative)
 import Control.MonadZero (class MonadZero)
+import Data.Foldable (class Foldable, foldlDefault, foldrDefault)
+import Data.Monoid (mempty)
+import Data.Traversable (class Traversable, traverseDefault)
 
 foreign import data Null :: * -> *
 
@@ -40,6 +43,17 @@ instance nullPlus :: Plus Null where
 instance nullAlternative :: Alternative Null
 instance nullMonad :: Monad Null
 instance nullMonadZero :: MonadZero Null
+
+instance nullFoldable :: Foldable Null where
+  foldr f = foldrDefault f
+  foldl f = foldlDefault f
+  foldMap f x | isNull x = mempty
+              | otherwise = f $ unsafeUnNull x
+
+instance nullTraversable :: Traversable Null where
+  sequence x | isNull x  = pure null
+             | otherwise = pureNull <$> unsafeUnNull x
+  traverse = traverseDefault
 
 foreign import null         :: forall a  .                       Null a
 foreign import pureNull     :: forall a  .  a                 -> Null a
